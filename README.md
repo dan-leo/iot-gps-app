@@ -1,5 +1,5 @@
 # iot-gps-app
-App/widget that takes in a GPS stream from an IoT device.
+IoT app/widget that periodically captures GPS coordinates and streams to a backend for storage and display on a map.
 
 ## Objectives
 
