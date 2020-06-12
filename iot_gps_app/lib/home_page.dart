@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Location"),
+        title: Text("IoT GPS: Location Tracker"),
       ),
       body: Center(
         child: Column(
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scheduleTask() async {
-    // Create a periodic task that prints 'Hello World' every 1s
+    // Create a periodic task that posts GPS coordinates to Thingsboard every 1 second.
     final scheduler = NeatPeriodicTaskScheduler(
       interval: Duration(milliseconds: 1000),
       name: 'stream-gps',
@@ -120,11 +120,11 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-postRequest(String lat, String long) async {
+dynamic postRequest(String lat, String long) async {
   final accessToken = 'FBprmkoajCHYwRNmSsSv';
   var url = 'https://demo.thingsboard.io/api/v1/$accessToken/telemetry';
   // url = 'https://ptsv2.com/t/pm7ab-1591921811/post';
-  var body = '{"lat": $lat, "long": $long}';
+  var body = '{"latitude": $lat, "longitude": $long}';
 
   print('Url: $url, Body: $body');
 
@@ -139,9 +139,7 @@ postRequest(String lat, String long) async {
   );
 
   if (response.body.isNotEmpty)
-    print("response.body: ${response.body}");
-
-  // todo - handle non-200 status code, etc
+    print("response.body: ${response.body}"); // todo - handle non-200 status code, etc
 
   return response.body;
 }
